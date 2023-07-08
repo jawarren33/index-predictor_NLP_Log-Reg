@@ -1,0 +1,38 @@
+#work cited for BERT code parameters: codebasics. 2021. 
+#Text Classification Using BERT & Tensorflow | Deep Learning Tutorial 47 (Tensorflow, Keras & Python). August 28. Accessed September 01, 2021.
+#https://www.youtube.com/watch?v=hOCDJyZ6quA&ab_channel=codebasics
+
+#load bert preprocessor to convert text into tensor data
+bert_preprocess = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3")
+#load bert encoder for BERT model
+bert_encoder = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/4")
+
+#balance dataset so that each label has same number of sample rows
+
+def balance_df (df_label):
+    df_label_bull = df_label[df_label['label'] == 1]
+    df_label_bear = df_label[df_label['label'] == 0]
+    df_label_bull_samp = df_label_bull.sample(df_label_bear.shape[0])
+
+    df_label_bal = pd.concat([df_label_bear,df_label_bull_samp])
+    
+    return print(df_label_bal['label'].value_counts())
+
+
+#split data into training and testing sets
+
+X_train, X_test, y_train, y_test = train_test_split(df_label_bal['Text'], df_label_bal['label'], stratify=df_label_bal['label'])
+
+#load text data
+text_input = tf.keras.layers.Input(shape=(), dtype=tf.string, name = 'text')
+processed_text = bert_preprocess(text_input)
+out = bert_encoder(processed_text)
+
+#define BERT layer parameters
+layer = tf.keras.layers.Dropout(0.1, name="dropout")(out['pooled_output'])
+layer = tf.keras.layers.Dense(1, activation="sigmoid", name='output')(layer)
+
+#define model
+model = tf.keras.Model(inputs=[text_input], outputs=[layer])
+
+
