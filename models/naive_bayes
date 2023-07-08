@@ -1,0 +1,19 @@
+#load Gaussian Naive Bayes model
+classifier = GaussianNB()
+
+#train the Gaussian Naive Bayes model using the training data and labels
+classifier.fit(X_train_, y_train_)
+
+#generate predictions on test data
+
+y_pred_  =  classifier.predict(X_test_)
+
+#generate confusion matrix and accuracy score
+cm_ = confusion_matrix(y_test_, y_pred_)
+ac_ = accuracy_score(y_test_,y_pred_)
+
+#generate classifications on entire dataset 
+bert_pred = pd.DataFrame(classifier.predict(bert_prediction))
+
+#generate final accuracy score on real nasdaq trend labels
+bert_nas_acc = accuracy_score(nasdaq_df['trend'],bert_pred)
