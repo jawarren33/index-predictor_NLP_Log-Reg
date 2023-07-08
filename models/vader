@@ -1,0 +1,7 @@
+#work cited for VADER parameters: Beri, Aditya. 2020. Towards Data Science. May 27. Accessed September 08, 2021. https://towardsdatascience.com/sentimental-analysis-using-vader-a3415fef7664.
+
+#load vader lexicon
+nltk.download('vader_lexicon')
+#load vader sentiment analyzer
+sid = SentimentIntensityAnalyzer()
+  
