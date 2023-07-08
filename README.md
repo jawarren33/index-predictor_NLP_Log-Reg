@@ -18,15 +18,19 @@ The following metrics resemble the model’s performance when evaluated on the t
 <img width="628" alt="Screen Shot 2023-07-07 at 8 25 11 PM" src="https://github.com/jawarren33/index-predictor_NLP_Log-Reg/assets/73670838/e1db21b4-aa6a-4622-82c4-38a1d8382a5a">
 
 As we can see, the model performed best when predicting a Bearish tag when the Bearish tag (indicated as a “0”) than the Bullish tag (indicated as a “1”).
+
 <img width="414" alt="Screen Shot 2023-07-07 at 8 26 02 PM" src="https://github.com/jawarren33/index-predictor_NLP_Log-Reg/assets/73670838/c71557a7-3848-4c83-9f66-e8a3918a4243">
 
 The mean value for each day for both pre-market opening, and post-market closing is calculated. In the figure below, the trend of the quantified sentiment as predicted by the BERT model is shown.
+
 <img width="877" alt="Screen Shot 2023-07-07 at 8 27 08 PM" src="https://github.com/jawarren33/index-predictor_NLP_Log-Reg/assets/73670838/8ef550ea-54c1-420e-bde0-bfa3d73ce8ac">
 
 In comparison, the quantified trend predicted by the VADER model is shown below:
+
 <img width="915" alt="Screen Shot 2023-07-07 at 8 30 25 PM" src="https://github.com/jawarren33/index-predictor_NLP_Log-Reg/assets/73670838/f7e6c042-0d13-45f3-96a8-05983a77b58e">
 
 At first glance, the VADER model was slightly more accurate with text classification than the BERT model. Both models, however, we able to generate a similar sentiment trend. The ability of the models to generate a similar sentiment trend is valuable to confirm that the text data being used has the capability to be interpreted as a predictor due to consistency of the trends. In Figure 5 below, the quantified sentiment that has been calculated based on classifications made by the models follows similar trends. To analyze the data on the same scale, both the VADER mean compound score for each period and the BERT mean daily sentiment were standardized using Min-Max scaling. Therefore, the data is standardized on an even scale between 0 and 1.
+
 <img width="900" alt="Screen Shot 2023-07-07 at 8 31 21 PM" src="https://github.com/jawarren33/index-predictor_NLP_Log-Reg/assets/73670838/07a979ff-089c-4deb-80d5-286b09ffdf02">
 
 Initially, one apparent issue with the VADER tool is that it will assign a 100 percent neutral score on phrases that are not of substantial width or contain mostly proper nouns such as names of people or companies. Adjusting for the significant number of neutral statements, all of the statements that have a compound score equal to zero were excluded. Additionally, text that produces a compound score close to zero can be considered indifferentiable. Therefore, only compound scores greater than 0.2 and less that -0.2 were included for analysis. After filtering out the rows of data with indistinguishable compound scores, the sample data then consisted of 8,425 rows of text data. The new distribution of the predicted compound scores is shown below.
@@ -37,9 +41,11 @@ Just by eye, we can see that the quantified sentiment follows almost identical t
 <img width="864" alt="Screen Shot 2023-07-07 at 8 32 17 PM" src="https://github.com/jawarren33/index-predictor_NLP_Log-Reg/assets/73670838/998cb5df-0c00-429a-8742-209a3a26e899">
 
 The stock index data is standardized using Min-Max scaling so that the values can be analyzed in an identical range to the models. The MSE is then calculated for each model on each individual index, results shown below:
+
 <img width="450" alt="Screen Shot 2023-07-07 at 8 33 09 PM" src="https://github.com/jawarren33/index-predictor_NLP_Log-Reg/assets/73670838/ad7cf06f-e23e-4886-a11d-f6cc28c78c6e">
 
 Regardless of having less testing accuracy than the VADER model from a label classification perspective, the BERT model performed better when quantifying sentiment trends that align better with real market price trends. Specifically, the BERT model performed best when aligned with NASDAQ trends. The figure below shows the relationship between the BERT sentiment trend and the NASDAQ price trend.
+
 <img width="873" alt="Screen Shot 2023-07-07 at 8 34 08 PM" src="https://github.com/jawarren33/index-predictor_NLP_Log-Reg/assets/73670838/bfcda570-9f76-481e-837e-304f3904a712">
 
 There lies further room for research. Due to computational and time limitations, the amount of data used to train the BERT and Naïve Bayes models was of small sample size in comparison to industry norms. The models showed improving performance when training with additional epochs. The accuracy of the BERT model improved with both accuracy and a smaller loss curve with every epoch. The Naïve Bayes classified was trained using a sample size that was less than 30 samples, below the industry minimum to statistically reject the null hypothesis that it is not an accurate predictor of stock index movement. However, this research confirmed the foundation for expanding the models used on larger sample sizes and more training epochs. Additionally, only one classifier technique was explored in this research. Other classifier functions could potentially produce better results when trained on the data. (Troussas, et al. 2013) explored the comparative performances of different classifiers and found the Rocchio Classifier to be a classifier that produced a greater recall and F-score than the Naïve Bayes, with a slightly lower accuracy. Further research is required to assess the Rocchio Classifier’s ability to fit to the data specific to this research.
