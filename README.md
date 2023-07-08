@@ -34,6 +34,7 @@ At first glance, the VADER model was slightly more accurate with text classifica
 <img width="900" alt="Screen Shot 2023-07-07 at 8 31 21 PM" src="https://github.com/jawarren33/index-predictor_NLP_Log-Reg/assets/73670838/07a979ff-089c-4deb-80d5-286b09ffdf02">
 
 Initially, one apparent issue with the VADER tool is that it will assign a 100 percent neutral score on phrases that are not of substantial width or contain mostly proper nouns such as names of people or companies. Adjusting for the significant number of neutral statements, all of the statements that have a compound score equal to zero were excluded. Additionally, text that produces a compound score close to zero can be considered indifferentiable. Therefore, only compound scores greater than 0.2 and less that -0.2 were included for analysis. After filtering out the rows of data with indistinguishable compound scores, the sample data then consisted of 8,425 rows of text data. The new distribution of the predicted compound scores is shown below.
+
 <img width="532" alt="Screen Shot 2023-07-07 at 8 28 36 PM" src="https://github.com/jawarren33/index-predictor_NLP_Log-Reg/assets/73670838/35921867-f56c-40af-9ab9-7ce2076cc9f2">
 
 
